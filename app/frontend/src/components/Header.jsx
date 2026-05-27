@@ -25,7 +25,7 @@ export default function Header() {
               Sonar
             </>
           ) : (
-            <>sync<span>watch</span></>
+            <>blxck<span>.hub</span></>
           )}
         </Link>
 

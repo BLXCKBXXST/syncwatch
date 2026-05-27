@@ -73,7 +73,7 @@ export function ThemeProvider({ children }) {
   useEffect(() => {
     if (theme === 'seans') document.title = 'СЕАНС'
     else if (theme === 'sonar') document.title = 'Sonar'
-    else document.title = 'Syncwatch'
+    else document.title = 'blxck.hub'
   }, [theme])
 
   // Серверный дефолт темы — применяется только если у пользователя нет

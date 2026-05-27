@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
                     'default_theme',
                     models.CharField(
                         choices=[
-                            ('default', 'Syncwatch (тёмная)'),
+                            ('default', 'blxck.hub (тёмная)'),
                             ('seans', 'СЕАНС'),
                             ('sonar', 'Sonar'),
                         ],

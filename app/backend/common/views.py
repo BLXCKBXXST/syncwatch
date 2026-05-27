@@ -11,7 +11,7 @@ from .models import SiteSettings
 @permission_classes([AllowAny])
 def health(request):
     """Проверка живости сервиса (для мониторинга и деплой-скрипта)."""
-    return Response({'status': 'ok', 'service': 'syncwatch'})
+    return Response({'status': 'ok', 'service': 'blxck.hub'})
 
 
 @api_view(['GET'])

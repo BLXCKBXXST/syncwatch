@@ -27,7 +27,7 @@ watch alone, or pull friends into a room where everyone's player stays in sync.
 - Live chat with per-message likes; Q&A tab with up-votes.
 - Username/password sign-up and login with JWT sessions; one-click guest mode
   (guest accounts are auto-deleted after 24h of inactivity).
-- Three bundled UI themes (dark Syncwatch, retro СЕАНС, light Sonar) with an
+- Three bundled UI themes (dark default, retro СЕАНС, light Sonar) with an
   admin-set per-site default; per-user preference saved in `localStorage`.
 
 ## Tech stack

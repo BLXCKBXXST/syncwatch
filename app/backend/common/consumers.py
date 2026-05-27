@@ -15,7 +15,7 @@ class EchoConsumer(AsyncWebsocketConsumer):
 
     async def connect(self):
         await self.accept()
-        await self.send(text_data=json.dumps({'type': 'ready', 'detail': 'syncwatch ws'}))
+        await self.send(text_data=json.dumps({'type': 'ready', 'detail': 'blxck.hub ws'}))
 
     async def receive(self, text_data=None, bytes_data=None):
         await self.send(text_data=json.dumps({'type': 'echo', 'data': text_data}))

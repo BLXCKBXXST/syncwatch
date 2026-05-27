@@ -52,7 +52,7 @@ export default function ThemeMenu() {
               onClick={() => selectTheme('default')}
             >
               <span className="theme-menu__dot theme-menu__dot--default" />
-              Syncwatch
+              blxck.hub
             </button>
             <button
               type="button"

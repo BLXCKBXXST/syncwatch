@@ -25,7 +25,7 @@ export default function AuthLayout({ children }) {
               Sonar
             </>
           ) : (
-            <>sync<span>watch</span></>
+            <>blxck<span>.hub</span></>
           )}
         </div>
         <nav className="auth__tabs">
