@@ -14,9 +14,19 @@ watch alone, or pull friends into a room where everyone's player stays in sync.
 
 ## Screenshots
 
-| Feed | Watch | Room |
-|------|-------|------|
-| ![Feed](docs/screenshots/home.png) | ![Watch](docs/screenshots/watch.png) | ![Room](docs/screenshots/room.png) |
+| Feed | Profile | Room |
+|------|---------|------|
+| ![Feed](docs/screenshots/sonar-home.png) | ![Profile](docs/screenshots/sonar-profile.png) | ![Room](docs/screenshots/sonar-room.png) |
+
+<!-- Alternative set in the dark blxck.hub theme — uncomment this block
+     and comment out the table above to switch the active screenshot set.
+
+| Feed | Profile | Room |
+|------|---------|------|
+| ![Feed](docs/screenshots/blxckhub-home.png) | ![Profile](docs/screenshots/blxckhub-profile.png) | ![Room](docs/screenshots/blxckhub-room.png) |
+
+-->
+
 
 ## Features
 
