@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Syncwatch</title>
+    <script>
+      // Pre-apply темы до маунта React, чтобы избежать мерцания.
+      // Источник истины — localStorage; server-default закешировал useEffect
+      // в ThemeContext во время предыдущего визита.
+      (function () {
+        try {
+          var ls = window.localStorage;
+          var t = ls.getItem('blxckhub:theme') || ls.getItem('blxckhub:server-default-theme');
+          if (t && t !== 'default') {
+            document.documentElement.dataset.theme = t;
+          }
+        } catch (_) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

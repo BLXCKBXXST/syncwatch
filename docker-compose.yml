@@ -1,0 +1,57 @@
+# Self-contained stack: `docker compose up --build` brings up the whole app
+# (database, Redis, backend, frontend) and publishes it on :8080.
+#
+# Local development is usually done natively (venv + npm run dev). This compose
+# file is for demos, "looks like prod" checks, and as a template for deployment.
+# The blxckhub-* service names are kept in sync with deploy.sh, so the bundled
+# nginx.conf works in both environments.
+
+services:
+  blxckhub-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: blxckhub
+      POSTGRES_USER: blxckhub
+      POSTGRES_PASSWORD: blxckhub
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U blxckhub']
+      interval: 5s
+      retries: 10
+
+  blxckhub-redis:
+    image: redis:7-alpine
+
+  blxckhub-backend:
+    build: ./app/backend
+    environment:
+      DJANGO_SECRET_KEY: compose-demo-secret-key
+      DJANGO_DEBUG: 'False'
+      DJANGO_ALLOWED_HOSTS: '*'
+      DATABASE_URL: postgres://blxckhub:blxckhub@blxckhub-db:5432/blxckhub
+      REDIS_URL: redis://blxckhub-redis:6379/0
+      CORS_ALLOWED_ORIGINS: http://localhost:8080
+    volumes:
+      - media:/app/media
+      - static:/app/staticfiles
+    depends_on:
+      blxckhub-db:
+        condition: service_healthy
+      blxckhub-redis:
+        condition: service_started
+
+  blxckhub-frontend:
+    build: ./app/frontend
+    ports:
+      - '8080:80'
+    volumes:
+      - media:/srv/media:ro
+      - static:/srv/static:ro
+    depends_on:
+      - blxckhub-backend
+
+volumes:
+  pgdata:
+  media:
+  static:

@@ -1,0 +1,153 @@
+.auth {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+  overflow: hidden;
+}
+
+/* Тёмный фон с акцентным свечением — замена синего фона из макета Figma. */
+.auth__backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(620px circle at 78% 18%, var(--color-auth-glow-1), transparent 60%),
+    radial-gradient(520px circle at 12% 88%, var(--color-auth-glow-2), transparent 55%),
+    var(--color-bg);
+}
+
+.auth__inner {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.auth__brand {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: var(--space-5);
+}
+
+.auth__brand span {
+  color: var(--color-accent);
+}
+
+.auth__tabs {
+  display: flex;
+  gap: var(--space-5);
+  margin-bottom: var(--space-4);
+}
+
+.auth__tab {
+  padding: var(--space-2) var(--space-1);
+  color: var(--color-text-muted);
+  font-weight: 600;
+  border-bottom: 2px solid transparent;
+}
+
+.auth__tab:hover {
+  color: var(--color-text);
+}
+
+.auth__tab--active {
+  color: var(--color-text);
+  border-bottom-color: var(--color-accent);
+}
+
+.auth__card {
+  width: 100%;
+  padding: var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+@media (max-width: 480px) {
+  .auth__card {
+    padding: var(--space-5);
+  }
+}
+
+/* --- Вспомогательные классы форм авторизации --- */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.auth-section-title {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: calc(-1 * var(--space-1));
+}
+
+.auth-section-title:not(:first-child) {
+  margin-top: var(--space-2);
+}
+
+.auth-note {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.auth-note--center {
+  text-align: center;
+}
+
+/* Блок альтернативного входа (гостем) под основной формой. */
+.auth-alt {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--color-text-faint);
+  font-size: 13px;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.auth-required-note {
+  font-size: 13px;
+  color: var(--color-text-faint);
+}
+
+.auth-error {
+  font-size: 14px;
+  color: var(--color-danger);
+  background: var(--color-danger-soft);
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+}
+
+.auth-link {
+  align-self: center;
+  background: none;
+  border: none;
+  padding: var(--space-1);
+  color: var(--color-accent);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.auth-link:hover {
+  color: var(--color-accent-hover);
+}

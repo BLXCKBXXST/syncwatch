@@ -1,0 +1,63 @@
+/* Дизайн-токены приложения (дефолтная тёмная тема).
+   Палитра — близкая к чёрному фону с индигово-фиолетовым акцентом. */
+
+:root {
+  /* Поверхности */
+  --color-bg: #0c0c0e;
+  --color-surface: #161619;
+  --color-surface-2: #1f1f24;
+  --color-surface-3: #2a2a30;
+  --color-border: #2c2c33;
+  --color-border-strong: #3a3a43;
+
+  /* Текст */
+  --color-text: #f3f3f5;
+  --color-text-muted: #9a9aa6;
+  --color-text-faint: #6b6b76;
+
+  /* Акцент и статусы */
+  --color-accent: #6157ff;
+  --color-accent-hover: #7a72ff;
+  --color-accent-soft: rgba(97, 87, 255, 0.14);
+  --color-on-accent: #ffffff;
+  --color-danger: #ff5a6a;
+  --color-danger-soft: rgba(255, 90, 106, 0.12);
+  --color-success: #3ddc84;
+  --color-like: #ff5a6a;
+
+  /* Скругления */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-pill: 999px;
+
+  /* Отступы (шаг 4px) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-8: 48px;
+
+  /* Тени */
+  --shadow-card: 0 6px 24px rgba(0, 0, 0, 0.45);
+  --shadow-pop: 0 12px 40px rgba(0, 0, 0, 0.6);
+
+  /* Семантические токены — переопределяются альтернативной темой */
+  --color-header-bg: rgba(12, 12, 14, 0.92);
+  --color-auth-glow-1: rgba(97, 87, 255, 0.22);
+  --color-auth-glow-2: rgba(97, 87, 255, 0.14);
+
+  /* Типографика */
+  --font-sans: 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+
+  /* Точки адаптива (синхронизированы с дизайн-лабами репозитория) */
+  --bp-tablet: 768px;
+  --bp-mobile: 360px;
+
+  /* Размеры макета */
+  --header-height: 64px;
+  --content-max: 1280px;
+}

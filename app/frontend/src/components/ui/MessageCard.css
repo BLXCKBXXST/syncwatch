@@ -1,0 +1,57 @@
+.msg {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background: var(--color-surface-2);
+  border-radius: var(--radius-md);
+}
+
+.msg__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.msg__author {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.msg__text {
+  margin-top: 2px;
+  font-size: 14px;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+}
+
+.msg__like {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  padding: 2px;
+  color: var(--color-text-faint);
+  cursor: pointer;
+}
+
+.msg__heart {
+  font-size: 15px;
+  line-height: 1;
+}
+
+.msg__like--on {
+  color: var(--color-like);
+}
+
+.msg__like:hover {
+  color: var(--color-like);
+}
+
+.msg__count {
+  font-size: 13px;
+  min-width: 12px;
+  text-align: left;
+}

@@ -1,0 +1,14 @@
+.player {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.player__video {
+  width: 100%;
+  height: 100%;
+  display: block;
+}

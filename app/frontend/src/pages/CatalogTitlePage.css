@@ -1,0 +1,135 @@
+.catalog-title {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4);
+}
+
+.catalog-title__head {
+  display: grid;
+  grid-template-columns: minmax(200px, 280px) 1fr;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+@media (max-width: 720px) {
+  .catalog-title__head {
+    grid-template-columns: 1fr;
+  }
+}
+
+.catalog-title__poster {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  background: var(--color-surface-2);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.catalog-title__poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.catalog-title__poster-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 64px;
+  font-weight: 700;
+  color: var(--color-text-faint);
+}
+
+.catalog-title__name {
+  margin: 0 0 var(--space-3);
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.catalog-title__year {
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.catalog-title__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+.catalog-title__descr {
+  color: var(--color-text);
+  line-height: 1.5;
+  margin-bottom: var(--space-4);
+}
+
+.catalog-title__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-3);
+}
+
+.catalog-title__source {
+  color: var(--color-text-muted);
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+.catalog-title__seasons {
+  margin-top: var(--space-6);
+}
+
+.catalog-title__subtitle {
+  font-size: 18px;
+  margin: 0 0 var(--space-3);
+}
+
+.catalog-title__seasons-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.catalog-title__season-tab {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.catalog-title__season-tab:hover {
+  border-color: var(--color-accent);
+}
+
+.catalog-title__season-tab--active {
+  background: var(--color-accent-soft);
+  border-color: var(--color-accent);
+}
+
+.catalog-title__episodes {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  color: var(--color-text);
+}
+
+.catalog-title__ep-num {
+  display: inline-block;
+  min-width: 28px;
+  color: var(--color-text-muted);
+  font-weight: 700;
+}

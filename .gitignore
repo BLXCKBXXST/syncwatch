@@ -1,0 +1,25 @@
+# --- Секреты и окружение ---
+.env
+*.env
+!.env.example
+
+# --- Python / Django ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+db.sqlite3
+db.sqlite3-journal
+/app/backend/media/
+/app/backend/staticfiles/
+.pytest_cache/
+
+# --- Node / React ---
+node_modules/
+/app/frontend/dist/
+npm-debug.log*
+
+# --- Прочее ---
+*.log
+.DS_Store
+*.bak.*

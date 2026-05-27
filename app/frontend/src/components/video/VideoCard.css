@@ -1,0 +1,65 @@
+.vcard {
+  display: block;
+  color: var(--color-text);
+}
+
+.vcard__thumb {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-surface-2);
+}
+
+.vcard__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vcard__thumb-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 34px;
+  color: var(--color-text-faint);
+  background: linear-gradient(135deg, var(--color-surface-2), var(--color-surface-3));
+}
+
+.vcard:hover .vcard__thumb {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.vcard__duration {
+  position: absolute;
+  right: var(--space-2);
+  bottom: var(--space-2);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.vcard__body {
+  padding-top: var(--space-3);
+}
+
+.vcard__title {
+  font-size: 15px;
+  font-weight: 600;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.vcard__meta {
+  margin-top: var(--space-1);
+  font-size: 13px;
+  color: var(--color-text-muted);
+}

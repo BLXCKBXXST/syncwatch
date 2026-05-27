@@ -1,0 +1,22 @@
+.vgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-5);
+}
+
+.vgrid__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.vgrid__actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+@media (max-width: 480px) {
+  .vgrid {
+    grid-template-columns: 1fr;
+  }
+}
