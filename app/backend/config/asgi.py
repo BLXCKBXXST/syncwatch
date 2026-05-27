@@ -1,4 +1,4 @@
-"""ASGI-точка входа blxck.hub: маршрутизирует HTTP и WebSocket по протоколу."""
+"""ASGI entrypoint: routes HTTP and WebSocket traffic by protocol."""
 
 import os
 

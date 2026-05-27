@@ -29,7 +29,7 @@ class SiteSettings(models.Model):
     """Глобальные настройки сайта. Singleton: всегда одна запись с pk=1."""
 
     THEME_CHOICES = [
-        ('default', 'blxck.hub (тёмная)'),
+        ('default', 'Syncwatch (тёмная)'),
         ('seans', 'СЕАНС'),
         ('sonar', 'Sonar'),
     ]

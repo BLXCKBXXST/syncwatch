@@ -108,9 +108,9 @@ EOF
     fi
 
     if grep -qE '^[[:space:]]+blxckhub-backend:[[:space:]]*$' "${COMPOSE_FILE}"; then
-        echo "==> Сервисы blxck.hub уже описаны в ${COMPOSE_FILE} — пропускаю."
+        echo "==> Services already present in ${COMPOSE_FILE} — skipping."
     else
-        echo "==> Добавляю сервисы blxck.hub в ${COMPOSE_FILE}..."
+        echo "==> Adding services to ${COMPOSE_FILE}..."
         cat >>"${COMPOSE_FILE}" <<'EOF'
 
   blxckhub-db:
@@ -204,7 +204,7 @@ action_uninstall() {
     cp -a "${COMPOSE_FILE}" "${COMPOSE_FILE}.bak.${stamp}"
     cp -a "${CADDY_FILE}"   "${CADDY_FILE}.bak.${stamp}"
 
-    echo "==> Останавливаю и удаляю контейнеры blxck.hub..."
+    echo "==> Stopping and removing containers..."
     for svc in blxckhub-frontend blxckhub-backend blxckhub-redis blxckhub-db; do
         if ( cd "${STACK_DIR}" && docker compose ps --services 2>/dev/null | grep -qx "${svc}" ); then
             ( cd "${STACK_DIR}" && docker compose stop "${svc}" && docker compose rm -f "${svc}" )
@@ -212,7 +212,7 @@ action_uninstall() {
     done
 
     if grep -qE '^[[:space:]]+blxckhub-db:[[:space:]]*$' "${COMPOSE_FILE}"; then
-        echo "==> Удаляю сервисы blxck.hub из ${COMPOSE_FILE}..."
+        echo "==> Removing services from ${COMPOSE_FILE}..."
         # Удаляем блок от строки "  blxckhub-db:" до следующего НЕ-blxckhub
         # сервиса (две ведущих пробела + слово) либо до конца файла.
         awk '
@@ -224,7 +224,7 @@ action_uninstall() {
         ' "${COMPOSE_FILE}" > "${COMPOSE_FILE}.tmp"
         mv "${COMPOSE_FILE}.tmp" "${COMPOSE_FILE}"
     else
-        echo "==> Сервисы blxck.hub отсутствуют в ${COMPOSE_FILE} — пропускаю."
+        echo "==> Services are absent from ${COMPOSE_FILE} — skipping."
     fi
 
     if grep -qF "${DOMAIN} {" "${CADDY_FILE}"; then

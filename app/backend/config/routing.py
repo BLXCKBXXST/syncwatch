@@ -1,4 +1,4 @@
-"""Маршрутизация WebSocket-соединений blxck.hub."""
+"""WebSocket URL routing."""
 
 from django.urls import path
 

@@ -1,4 +1,4 @@
-"""Корневая маршрутизация HTTP-запросов blxck.hub."""
+"""Root HTTP URL configuration."""
 
 from django.conf import settings
 from django.conf.urls.static import static
