@@ -1,0 +1,63 @@
+{
+  "theme": "base",
+  "fontFamily": "\"Inter\", sans-serif",
+  "fontSize": 28,
+  "themeVariables": {
+    "fontFamily": "\"Inter\", sans-serif",
+    "fontSize": "28px",
+    "primaryColor": "#DBEAFE",
+    "primaryTextColor": "#0F172A",
+    "primaryBorderColor": "#1E3A8A",
+    "secondaryColor": "#F1F5F9",
+    "tertiaryColor": "#FAFAFA",
+    "lineColor": "#334155",
+    "background": "#FFFFFF",
+    "edgeLabelBackground": "transparent",
+    "textColor": "#0F172A",
+    "taskBkgColor": "#1E3A8A",
+    "taskBorderColor": "#1E40AF",
+    "taskTextColor": "#FFFFFF",
+    "taskTextOutsideColor": "#0F172A",
+    "taskTextDarkColor": "#FFFFFF",
+    "taskTextLightColor": "#FFFFFF",
+    "activeTaskBkgColor": "#3B82F6",
+    "activeTaskBorderColor": "#1E40AF",
+    "doneTaskBkgColor": "#94A3B8",
+    "sectionBkgColor": "#F1F5F9",
+    "altSectionBkgColor": "#FAFAFA",
+    "gridColor": "#E5E7EB",
+    "actorBkg": "#1E3A8A",
+    "actorTextColor": "#FFFFFF",
+    "actorLineColor": "#1E3A8A",
+    "signalColor": "#334155",
+    "signalTextColor": "#0F172A",
+    "noteBkgColor": "#DBEAFE",
+    "noteTextColor": "#0F172A"
+  },
+  "flowchart": {
+    "fontSize": 28,
+    "nodeSpacing": 60,
+    "rankSpacing": 90,
+    "curve": "basis"
+  },
+  "gantt": {
+    "fontSize": 28,
+    "barHeight": 60,
+    "barGap": 12,
+    "sectionFontSize": 28,
+    "leftPadding": 200,
+    "topPadding": 60
+  },
+  "sequence": {
+    "actorFontSize": 24,
+    "messageFontSize": 22,
+    "noteFontSize": 22,
+    "actorMargin": 220,
+    "messageMargin": 50,
+    "boxMargin": 16,
+    "wrap": false
+  },
+  "class": {
+    "fontSize": 24
+  }
+}

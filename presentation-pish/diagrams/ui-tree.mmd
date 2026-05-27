@@ -1,0 +1,47 @@
+%%{init: {
+  'theme': 'base',
+  'fontFamily': '"Inter", sans-serif',
+  'themeCSS': '* { font-family: "Inter", "Inter Variable", sans-serif !important; }',
+  'flowchart': {'nodeSpacing': 60, 'rankSpacing': 90},
+  'themeVariables': {
+    'fontFamily': '"Inter", sans-serif',
+    'fontSize': '30px',
+    'primaryColor': '#1E3A8A',
+    'primaryTextColor': '#FFFFFF',
+    'primaryBorderColor': '#1E40AF',
+    'lineColor': '#334155',
+    'background': '#FFFFFF'
+  }
+}}%%
+flowchart TD
+    App["<b>App</b>"]
+    Layout["<b>Layout</b><br/>Header + Outlet"]
+
+    Home["HomePage<br/>лента видео"]
+    Room["WatchRoomPage<br/>плеер + комната"]
+    Profile["ProfilePage"]
+    Auth["LoginPage<br/>RegisterPage"]
+    Catalog["CatalogPage"]
+
+    Player["components/player<br/>HLS, контролы"]
+    RoomCmp["components/room<br/>чат, Q&A"]
+    UI["components/ui<br/>Button, Field"]
+
+    App --> Layout
+    Layout --> Home
+    Layout --> Room
+    Layout --> Profile
+    Layout --> Auth
+    Layout --> Catalog
+
+    Room --> Player
+    Room --> RoomCmp
+    Home --> UI
+    Room --> UI
+
+    classDef route fill:#DBEAFE,stroke:#1E3A8A,color:#0F172A;
+    classDef shared fill:#F1F5F9,stroke:#CBD5E1,color:#0F172A;
+    classDef root fill:#1E3A8A,stroke:#1E40AF,color:#FFFFFF;
+    class App,Layout root;
+    class Home,Room,Profile,Auth,Catalog route;
+    class Player,RoomCmp,UI shared;

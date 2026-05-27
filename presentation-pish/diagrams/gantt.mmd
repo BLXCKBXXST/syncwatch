@@ -1,0 +1,53 @@
+%%{init: {
+  'theme': 'base',
+  'fontFamily': '"Inter", sans-serif',
+  'themeCSS': '* { font-family: "Inter", "Inter Variable", sans-serif !important; }',
+  'gantt': {
+    'barHeight': 72,
+    'barGap': 16,
+    'fontSize': 28,
+    'sectionFontSize': 30,
+    'leftPadding': 200,
+    'topPadding': 70
+  },
+  'themeVariables': {
+    'fontFamily': '"Inter", sans-serif',
+    'fontSize': '28px',
+    'primaryColor': '#1E3A8A',
+    'primaryTextColor': '#FFFFFF',
+    'primaryBorderColor': '#1E40AF',
+    'lineColor': '#334155',
+    'background': '#FFFFFF',
+    'taskBkgColor': '#1E3A8A',
+    'taskBorderColor': '#1E40AF',
+    'taskTextColor': '#FFFFFF',
+    'taskTextOutsideColor': '#0F172A',
+    'taskTextDarkColor': '#FFFFFF',
+    'taskTextLightColor': '#FFFFFF',
+    'activeTaskBkgColor': '#3B82F6',
+    'sectionBkgColor': '#F1F5F9',
+    'altSectionBkgColor': '#FAFAFA',
+    'gridColor': '#E5E7EB'
+  }
+}}%%
+gantt
+    title Этапы разработки платформы Sonar
+    dateFormat  YYYY-MM-DD
+    axisFormat  %d.%m
+
+    section Анализ
+    Требования    :a1, 2026-05-01, 3d
+
+    section Бэкенд
+    API           :b1, after a1, 5d
+    Стриминг      :b2, after b1, 5d
+
+    section Фронтенд
+    Каркас        :c1, 2026-05-09, 6d
+    Чат и Q&A     :c2, after c1, 4d
+
+    section Качество
+    Тестирование  :d1, 2026-05-20, 4d
+
+    section Деплой
+    Стенд         :e1, after d1, 4d

@@ -1,0 +1,101 @@
+/* Override mermaid defaults */
+#my-svg,
+#my-svg svg,
+#my-svg .label,
+#my-svg .edgeLabel,
+#my-svg .nodeLabel,
+#my-svg .cluster-label,
+#my-svg .actor,
+#my-svg .messageText,
+#my-svg .noteText,
+#my-svg .sectionTitle,
+#my-svg .taskText,
+#my-svg .taskTextOutsideRight,
+#my-svg .taskTextOutsideLeft,
+#my-svg text,
+#my-svg p,
+#my-svg span,
+#my-svg foreignObject div {
+  font-family: "Inter", "Inter Variable", "Helvetica Neue", sans-serif !important;
+}
+
+#my-svg .label,
+#my-svg .nodeLabel,
+#my-svg .nodeLabel p,
+#my-svg .edgeLabel,
+#my-svg .edgeLabel p,
+#my-svg .cluster-label,
+#my-svg .cluster-label p,
+#my-svg foreignObject div {
+  font-size: 28px !important;
+  line-height: 1.4 !important;
+}
+
+#my-svg .actor,
+#my-svg .actor-line,
+#my-svg .messageText,
+#my-svg .noteText,
+#my-svg .labelText,
+#my-svg .loopText,
+#my-svg .loopText > tspan {
+  font-size: 22px !important;
+}
+
+#my-svg .taskText,
+#my-svg .taskTextOutsideRight,
+#my-svg .taskTextOutsideLeft,
+#my-svg .titleText,
+#my-svg .sectionTitle {
+  font-size: 22px !important;
+}
+
+#my-svg .tick text {
+  font-size: 18px !important;
+}
+
+/* edge labels — чёрный текст на ПРОЗРАЧНОМ фоне (стрелки под текстом просвечивают) */
+#my-svg .edgeLabel,
+#my-svg .edgeLabel p,
+#my-svg .edgeLabel span,
+#my-svg .edgeLabel foreignObject div {
+  color: #0F172A !important;
+  background-color: transparent !important;
+}
+#my-svg .edgeLabel rect.background,
+#my-svg .labelBkg,
+#my-svg .edgeLabel rect {
+  fill: none !important;
+  fill-opacity: 0 !important;
+  stroke: none !important;
+}
+
+/* classDiagram: светло-голубой fill + чёрный текст */
+#my-svg .classGroup rect,
+#my-svg .classGroup line {
+  fill: #DBEAFE !important;
+  stroke: #1E3A8A !important;
+}
+#my-svg .classGroup .title,
+#my-svg .classGroup text,
+#my-svg .classLabel .label,
+#my-svg .classLabel text,
+#my-svg .classGroup foreignObject div,
+#my-svg .nodeLabel {
+  fill: #0F172A !important;
+  color: #0F172A !important;
+}
+/* relationship labels в classDiagram — прозрачный фон, чёрный текст */
+#my-svg .relationshipLabel foreignObject div,
+#my-svg .relationshipLabel span,
+#my-svg .relationshipLabel p {
+  background-color: transparent !important;
+  color: #0F172A !important;
+}
+#my-svg .relationshipLabel rect,
+#my-svg .relationshipLabelBox,
+#my-svg .relationshipLabelBox rect {
+  fill: none !important;
+  fill-opacity: 0 !important;
+  stroke: none !important;
+}
+

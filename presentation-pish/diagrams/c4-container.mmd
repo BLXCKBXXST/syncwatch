@@ -1,0 +1,35 @@
+%%{init: {
+  'theme': 'base',
+  'fontFamily': '"Inter", sans-serif',
+  'themeCSS': '* { font-family: "Inter", "Inter Variable", sans-serif !important; }',
+  'flowchart': {'curve': 'basis', 'nodeSpacing': 80, 'rankSpacing': 110},
+  'themeVariables': {
+    'fontFamily': '"Inter", sans-serif',
+    'fontSize': '34px',
+    'lineColor': '#334155',
+    'background': '#FFFFFF',
+    'edgeLabelBackground': '#FFFFFF',
+    'textColor': '#0F172A'
+  }
+}}%%
+flowchart LR
+    SPA["<b>React SPA</b><br/>Vite · hls.js"]
+    Caddy["<b>Caddy</b><br/>auto-HTTPS"]
+    ASGI["<b>Daphne ASGI</b><br/>Django · Channels"]
+    PG[("<b>PostgreSQL</b><br/>данные")]
+    Redis[("<b>Redis</b><br/>pub/sub")]
+    FS[("<b>Файлы</b><br/>видео")]
+
+    SPA -- "HTTPS REST" --> Caddy
+    SPA -- "HTTPS WebSocket" --> Caddy
+    Caddy --> ASGI
+    ASGI -- "ORM" --> PG
+    ASGI -- "channels" --> Redis
+    ASGI -- "стриминг" --> FS
+
+    style SPA fill:#1E3A8A,stroke:#1E40AF,color:#FFFFFF
+    style Caddy fill:#1E3A8A,stroke:#1E40AF,color:#FFFFFF
+    style ASGI fill:#1E3A8A,stroke:#1E40AF,color:#FFFFFF
+    style PG fill:#F1F5F9,stroke:#CBD5E1,color:#0F172A
+    style Redis fill:#F1F5F9,stroke:#CBD5E1,color:#0F172A
+    style FS fill:#F1F5F9,stroke:#CBD5E1,color:#0F172A

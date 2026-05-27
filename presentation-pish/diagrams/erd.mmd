@@ -1,0 +1,54 @@
+%%{init: {
+  'theme': 'base',
+  'fontFamily': '"Inter", sans-serif',
+  'themeCSS': '* { font-family: "Inter", "Inter Variable", sans-serif !important; }',
+  'themeVariables': {
+    'fontFamily': '"Inter", sans-serif',
+    'fontSize': '28px',
+    'primaryColor': '#DBEAFE',
+    'primaryTextColor': '#0F172A',
+    'primaryBorderColor': '#1E3A8A',
+    'lineColor': '#334155',
+    'background': '#FFFFFF',
+    'classText': '#0F172A'
+  }
+}}%%
+classDiagram
+    direction LR
+
+    class User {
+      UUID id
+      string username
+    }
+    class Video {
+      UUID id
+      UUID owner_id
+      string title
+    }
+    class WatchRoom {
+      UUID id
+      UUID video_id
+      UUID host_id
+      float playback_position
+      bool is_playing
+    }
+    class ChatMessage {
+      UUID id
+      UUID room_id
+      UUID author_id
+      text text
+    }
+    class Question {
+      UUID id
+      UUID room_id
+      UUID author_id
+      bool is_answered
+    }
+
+    User "1" --o "*" Video : загружает
+    User "1" --o "*" WatchRoom : ведёт
+    Video "1" --o "*" WatchRoom : проигрывается
+    WatchRoom "1" --o "*" ChatMessage : содержит
+    User "1" --o "*" ChatMessage : пишет
+    WatchRoom "1" --o "*" Question : содержит
+    User "1" --o "*" Question : задаёт

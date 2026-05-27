@@ -1,0 +1,43 @@
+%%{init: {
+  'theme': 'base',
+  'fontFamily': '"Inter", sans-serif',
+  'themeCSS': '* { font-family: "Inter", "Inter Variable", sans-serif !important; }',
+  'sequence': {
+    'actorMargin': 240,
+    'messageMargin': 60,
+    'boxMargin': 16,
+    'noteMargin': 14,
+    'wrap': false
+  },
+  'themeVariables': {
+    'fontFamily': '"Inter", sans-serif',
+    'fontSize': '28px',
+    'primaryColor': '#1E3A8A',
+    'primaryTextColor': '#FFFFFF',
+    'primaryBorderColor': '#1E40AF',
+    'lineColor': '#334155',
+    'actorBkg': '#1E3A8A',
+    'actorTextColor': '#FFFFFF',
+    'actorLineColor': '#1E3A8A',
+    'signalColor': '#334155',
+    'signalTextColor': '#0F172A',
+    'noteBkgColor': '#DBEAFE',
+    'noteTextColor': '#0F172A',
+    'background': '#FFFFFF'
+  }
+}}%%
+sequenceDiagram
+    autonumber
+    participant H as Ведущий
+    participant S as Сервер
+    participant P as Подписчики
+
+    H->>S: play / pause / seek
+    S->>S: обновить состояние
+    S->>P: state.broadcast<br/>(position, is_playing, server_time)
+    P->>P: drift = now - server_time
+    alt drift < 0.5 c
+      P->>P: плавная коррекция playbackRate
+    else drift >= 2 c
+      P->>P: жёсткий seek
+    end
