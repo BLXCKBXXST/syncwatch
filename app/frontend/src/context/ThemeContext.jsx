@@ -74,6 +74,14 @@ export function ThemeProvider({ children }) {
     if (theme === 'seans') document.title = 'СЕАНС'
     else if (theme === 'sonar') document.title = 'Sonar'
     else document.title = 'blxck.hub'
+
+    const icons = {
+      default: '/favicon-default.svg',
+      seans: '/favicon-seans.svg',
+      sonar: '/favicon-sonar.svg',
+    }
+    const link = document.querySelector('link[rel="icon"]')
+    if (link) link.href = icons[theme] || icons.default
   }, [theme])
 
   // Серверный дефолт темы — применяется только если у пользователя нет
