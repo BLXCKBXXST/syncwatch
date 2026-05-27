@@ -81,10 +81,8 @@
   --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.04);
   --shadow-pop: 0 4px 12px rgba(15, 23, 42, 0.08);
 
-  /* Семантические токены — белая шапка и бледное синее свечение auth */
+  /* Семантические токены — белая полупрозрачная шапка. */
   --color-header-bg: rgba(255, 255, 255, 0.92);
-  --color-auth-glow-1: rgba(30, 58, 138, 0.1);
-  --color-auth-glow-2: rgba(30, 58, 138, 0.05);
 
   /* Типографика */
   --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
@@ -114,4 +112,25 @@
 :root[data-theme='sonar'] .header {
   border-bottom: 1px solid var(--color-border);
   box-shadow: 0 1px 0 0 var(--color-accent-soft);
+}
+
+/* «Эхолот»-фон auth: точка-источник в центре и пять концентрических
+   2-пиксельных колец с убывающей прозрачностью. Центр прикрыт карточкой
+   формы; кольца расходятся от неё к краям. Цвет берётся через color-mix
+   из текущего --color-accent — реагирует на смену свотча. */
+:root[data-theme='sonar'] .auth__backdrop {
+  background:
+    radial-gradient(circle at 50% 50%,
+      var(--color-accent) 3px, transparent 4px),
+    radial-gradient(circle at 50% 50%,
+      transparent 79px, color-mix(in srgb, var(--color-accent) 22%, transparent) 80px, transparent 81px),
+    radial-gradient(circle at 50% 50%,
+      transparent 159px, color-mix(in srgb, var(--color-accent) 16%, transparent) 160px, transparent 161px),
+    radial-gradient(circle at 50% 50%,
+      transparent 239px, color-mix(in srgb, var(--color-accent) 11%, transparent) 240px, transparent 241px),
+    radial-gradient(circle at 50% 50%,
+      transparent 319px, color-mix(in srgb, var(--color-accent) 7%, transparent) 320px, transparent 321px),
+    radial-gradient(circle at 50% 50%,
+      transparent 399px, color-mix(in srgb, var(--color-accent) 4%, transparent) 400px, transparent 401px),
+    var(--color-bg);
 }

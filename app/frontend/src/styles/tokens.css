@@ -46,8 +46,6 @@
 
   /* Семантические токены — переопределяются альтернативной темой */
   --color-header-bg: rgba(12, 12, 14, 0.92);
-  --color-auth-glow-1: rgba(97, 87, 255, 0.22);
-  --color-auth-glow-2: rgba(97, 87, 255, 0.14);
 
   /* Типографика */
   --font-sans: 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;

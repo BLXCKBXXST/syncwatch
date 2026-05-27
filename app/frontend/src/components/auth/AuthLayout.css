@@ -8,13 +8,16 @@
   overflow: hidden;
 }
 
-/* Тёмный фон с акцентным свечением — замена синего фона из макета Figma. */
+/* Фон с двумя акцентными свечениями. Цвет берём через color-mix из текущего
+   --color-accent — при смене свотча в ThemeMenu свечение перекрашивается. */
 .auth__backdrop {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(620px circle at 78% 18%, var(--color-auth-glow-1), transparent 60%),
-    radial-gradient(520px circle at 12% 88%, var(--color-auth-glow-2), transparent 55%),
+    radial-gradient(620px circle at 78% 18%,
+      color-mix(in srgb, var(--color-accent) 22%, transparent), transparent 60%),
+    radial-gradient(520px circle at 12% 88%,
+      color-mix(in srgb, var(--color-accent) 14%, transparent), transparent 55%),
     var(--color-bg);
 }
 
