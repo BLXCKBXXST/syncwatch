@@ -30,13 +30,18 @@ watch alone, or pull friends into a room where everyone's player stays in sync.
 
 ## Features
 
-- Upload videos, browse a global feed, paginated.
+- Upload videos, browse a global feed (paginated); owners can edit a video's
+  title, description, publication flag, and thumbnail straight from their
+  profile.
 - Per-video page with HLS-capable player and HTTP Range streaming (scrub & seek).
 - **Synchronized rooms**: host controls playback, viewer players track the
-  server clock with drift correction, invite-link join, guest access.
+  server clock with drift correction. Opening an invite link auto-creates a
+  guest account — no sign-up needed to watch and chat.
 - Live chat with per-message likes; Q&A tab with up-votes.
 - Username/password sign-up and login with JWT sessions; one-click guest mode
-  (guest accounts are auto-deleted after 24h of inactivity).
+  (guest accounts are auto-deleted after 24h of inactivity). A "sign out
+  everywhere" button in the profile invalidates all refresh tokens via the
+  blacklist.
 - Three bundled UI themes (dark default, retro СЕАНС, light Sonar) with an
   admin-set per-site default; per-user preference saved in `localStorage`.
 
