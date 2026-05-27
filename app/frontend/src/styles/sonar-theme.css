@@ -114,23 +114,38 @@
   box-shadow: 0 1px 0 0 var(--color-accent-soft);
 }
 
-/* «Эхолот»-фон auth: точка-источник в центре и пять концентрических
-   2-пиксельных колец с убывающей прозрачностью. Центр прикрыт карточкой
-   формы; кольца расходятся от неё к краям. Цвет берётся через color-mix
-   из текущего --color-accent — реагирует на смену свотча. */
+/* «Эхолот»-фон auth: точка-источник в центре и пять концентрических колец
+   толщиной 4px с убывающей прозрачностью. Центр прикрыт карточкой формы;
+   кольца расходятся от неё к краям. Цвет берётся через color-mix из
+   текущего --color-accent — реагирует на смену свотча. */
 :root[data-theme='sonar'] .auth__backdrop {
   background:
     radial-gradient(circle at 50% 50%,
-      var(--color-accent) 3px, transparent 4px),
+      var(--color-accent) 4px, transparent 5px),
     radial-gradient(circle at 50% 50%,
-      transparent 79px, color-mix(in srgb, var(--color-accent) 22%, transparent) 80px, transparent 81px),
+      transparent 78px,
+      color-mix(in srgb, var(--color-accent) 32%, transparent) 79px,
+      color-mix(in srgb, var(--color-accent) 32%, transparent) 82px,
+      transparent 83px),
     radial-gradient(circle at 50% 50%,
-      transparent 159px, color-mix(in srgb, var(--color-accent) 16%, transparent) 160px, transparent 161px),
+      transparent 158px,
+      color-mix(in srgb, var(--color-accent) 24%, transparent) 159px,
+      color-mix(in srgb, var(--color-accent) 24%, transparent) 162px,
+      transparent 163px),
     radial-gradient(circle at 50% 50%,
-      transparent 239px, color-mix(in srgb, var(--color-accent) 11%, transparent) 240px, transparent 241px),
+      transparent 238px,
+      color-mix(in srgb, var(--color-accent) 17%, transparent) 239px,
+      color-mix(in srgb, var(--color-accent) 17%, transparent) 242px,
+      transparent 243px),
     radial-gradient(circle at 50% 50%,
-      transparent 319px, color-mix(in srgb, var(--color-accent) 7%, transparent) 320px, transparent 321px),
+      transparent 318px,
+      color-mix(in srgb, var(--color-accent) 11%, transparent) 319px,
+      color-mix(in srgb, var(--color-accent) 11%, transparent) 322px,
+      transparent 323px),
     radial-gradient(circle at 50% 50%,
-      transparent 399px, color-mix(in srgb, var(--color-accent) 4%, transparent) 400px, transparent 401px),
+      transparent 398px,
+      color-mix(in srgb, var(--color-accent) 7%, transparent) 399px,
+      color-mix(in srgb, var(--color-accent) 7%, transparent) 402px,
+      transparent 403px),
     var(--color-bg);
 }
