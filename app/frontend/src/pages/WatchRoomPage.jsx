@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getRoom, refreshStream } from '../api/rooms.js'
+import { guestLogin } from '../api/auth.js'
 import { getAccessToken, refreshAccess } from '../api/client.js'
 import { useAuth } from '../context/AuthContext.jsx'
 import { useRoomSync } from '../hooks/useRoomSync.js'
@@ -12,7 +13,7 @@ import './WatchRoomPage.css'
 // Страница комнаты совместного просмотра: синхронный плеер и боковая панель.
 export default function WatchRoomPage() {
   const { roomId } = useParams()
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, loading: authLoading, login } = useAuth()
   const playerRef = useRef(null)
   const [room, setRoom] = useState(null)
   const [error, setError] = useState('')
@@ -22,6 +23,24 @@ export default function WatchRoomPage() {
   const [started, setStarted] = useState(false)
   const [copied, setCopied] = useState(false)
   const [refreshing, setRefreshing] = useState(false)
+
+  // Зашедшим по ссылке-приглашению без аккаунта автоматически выдаём
+  // гостевой — иначе WebSocket подключится как AnonymousUser и не сможет
+  // писать в чат/Q&A. Гость живёт 24 часа простоя, потом авто-удаляется.
+  useEffect(() => {
+    if (authLoading || isAuthenticated) return
+    let cancelled = false
+    guestLogin()
+      .then(({ data }) => {
+        if (!cancelled) login(data)
+      })
+      .catch(() => {
+        // Молча: останемся анонимом, форма ввода в чате просто не появится.
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [authLoading, isAuthenticated, login])
 
   // Загрузка комнаты по ссылке.
   useEffect(() => {

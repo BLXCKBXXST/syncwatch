@@ -3,6 +3,7 @@ import { deleteVideo, myVideos } from '../api/videos.js'
 import { updateMe } from '../api/auth.js'
 import { useAuth } from '../context/AuthContext.jsx'
 import VideoGrid from '../components/video/VideoGrid.jsx'
+import EditVideoModal from '../components/video/EditVideoModal.jsx'
 import Button from '../components/ui/Button.jsx'
 import TextField from '../components/ui/TextField.jsx'
 import ThemeMenu from '../components/ThemeMenu.jsx'
@@ -10,12 +11,14 @@ import './ProfilePage.css'
 
 // Профиль пользователя: данные, имя в чате и управление своими видео.
 export default function ProfilePage() {
-  const { user, isGuest, updateUser } = useAuth()
+  const { user, isGuest, updateUser, logoutEverywhere } = useAuth()
   const [videos, setVideos] = useState([])
   const [loading, setLoading] = useState(true)
   const [editingName, setEditingName] = useState(false)
   const [chatName, setChatName] = useState(user.chat_display_name || '')
   const [savingName, setSavingName] = useState(false)
+  const [editingVideo, setEditingVideo] = useState(null)
+  const [signingOutEverywhere, setSigningOutEverywhere] = useState(false)
 
   useEffect(() => {
     let cancelled = false
@@ -45,6 +48,16 @@ export default function ProfilePage() {
       setEditingName(false)
     } finally {
       setSavingName(false)
+    }
+  }
+
+  const signOutEverywhere = async () => {
+    if (!window.confirm('Выйти со всех устройств?')) return
+    setSigningOutEverywhere(true)
+    try {
+      await logoutEverywhere()
+    } finally {
+      setSigningOutEverywhere(false)
     }
   }
 
@@ -110,6 +123,18 @@ export default function ProfilePage() {
         )}
       </div>
 
+      {!isGuest && (
+        <div className="profile__signout-all">
+          <Button
+            variant="secondary"
+            onClick={signOutEverywhere}
+            loading={signingOutEverywhere}
+          >
+            Выйти со всех устройств
+          </Button>
+        </div>
+      )}
+
       <h2 className="profile__subtitle">Мои видео</h2>
       {loading && <p className="page-state">Загрузка…</p>}
       {!loading && videos.length === 0 && (
@@ -119,10 +144,28 @@ export default function ProfilePage() {
         <VideoGrid
           videos={videos}
           renderActions={(video) => (
-            <Button variant="danger" onClick={() => remove(video)}>
-              Удалить
-            </Button>
+            <div className="profile__video-actions">
+              <Button variant="secondary" onClick={() => setEditingVideo(video)}>
+                Изменить
+              </Button>
+              <Button variant="danger" onClick={() => remove(video)}>
+                Удалить
+              </Button>
+            </div>
           )}
+        />
+      )}
+
+      {editingVideo && (
+        <EditVideoModal
+          video={editingVideo}
+          onClose={() => setEditingVideo(null)}
+          onSaved={(updated) => {
+            setVideos((list) =>
+              list.map((v) => (v.id === updated.id ? { ...v, ...updated } : v)),
+            )
+            setEditingVideo(null)
+          }}
         />
       )}
     </div>

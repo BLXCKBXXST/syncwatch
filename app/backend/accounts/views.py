@@ -51,3 +51,25 @@ class MeView(RetrieveUpdateAPIView):
 
     def get_object(self):
         return self.request.user
+
+
+class LogoutAllView(APIView):
+    """Инвалидирует все refresh-токены пользователя (логаут со всех устройств).
+
+    Access-токены (30 мин TTL) остаются валидными до истечения; при попытке
+    обновить access клиент получит 401 на refresh-эндпоинте и будет сброшен
+    стандартным 401-обработчиком фронта.
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        from rest_framework_simplejwt.token_blacklist.models import (
+            BlacklistedToken,
+            OutstandingToken,
+        )
+
+        tokens = OutstandingToken.objects.filter(user=request.user)
+        for token in tokens:
+            BlacklistedToken.objects.get_or_create(token=token)
+        return Response({'detail': 'ok'})

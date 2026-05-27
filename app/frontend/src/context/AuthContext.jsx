@@ -6,7 +6,7 @@ import {
   setAuthLostHandler,
   setRefreshToken,
 } from '../api/client.js'
-import { getMe } from '../api/auth.js'
+import { getMe, logoutAll as apiLogoutAll } from '../api/auth.js'
 
 const AuthContext = createContext(null)
 
@@ -48,6 +48,18 @@ export function AuthProvider({ children }) {
     setUser(null)
   }, [])
 
+  // Инвалидирует все refresh-токены на бэке и разлогинивает локально.
+  // Чужие сессии получат 401 при ближайшем refresh access-токена.
+  const logoutEverywhere = useCallback(async () => {
+    try {
+      await apiLogoutAll()
+    } catch {
+      // молча: даже если запрос упал, локально разлогинимся
+    }
+    clearTokens()
+    setUser(null)
+  }, [])
+
   const value = {
     user,
     loading,
@@ -55,6 +67,7 @@ export function AuthProvider({ children }) {
     isGuest: Boolean(user?.is_guest),
     login,
     logout,
+    logoutEverywhere,
     updateUser: setUser,
   }
 
