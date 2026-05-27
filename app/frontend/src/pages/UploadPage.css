@@ -46,6 +46,14 @@
   white-space: nowrap;
 }
 
+.upload__thumb-preview {
+  width: 200px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-2);
+}
+
 .upload__check {
   display: flex;
   align-items: center;

@@ -1,4 +1,4 @@
-import { useId, useState } from 'react'
+import { useEffect, useId, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { uploadVideo } from '../api/videos.js'
 import { extractError, extractFieldErrors } from '../api/errors.js'
@@ -35,7 +35,19 @@ export default function UploadPage() {
   const [description, setDescription] = useState('')
   const [file, setFile] = useState(null)
   const [thumbnail, setThumbnail] = useState(null)
+  const [thumbnailPreview, setThumbnailPreview] = useState(null)
   const [isPublic, setIsPublic] = useState(true)
+
+  // Локальный preview выбранного превью; чистим object URL при уходе.
+  useEffect(() => {
+    if (!thumbnail) {
+      setThumbnailPreview(null)
+      return undefined
+    }
+    const url = URL.createObjectURL(thumbnail)
+    setThumbnailPreview(url)
+    return () => URL.revokeObjectURL(url)
+  }, [thumbnail])
   const [errors, setErrors] = useState({})
   const [formError, setFormError] = useState('')
   const [progress, setProgress] = useState(0)
@@ -115,6 +127,9 @@ export default function UploadPage() {
           onPick={setThumbnail}
           error={errors.thumbnail}
         />
+        {thumbnailPreview && (
+          <img className="upload__thumb-preview" src={thumbnailPreview} alt="" />
+        )}
 
         <label className="upload__check">
           <input

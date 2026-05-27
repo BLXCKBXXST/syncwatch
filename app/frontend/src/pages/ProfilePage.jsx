@@ -144,14 +144,18 @@ export default function ProfilePage() {
         <VideoGrid
           videos={videos}
           renderActions={(video) => (
-            <div className="profile__video-actions">
-              <Button variant="secondary" onClick={() => setEditingVideo(video)}>
+            <>
+              <Button
+                fullWidth
+                variant="secondary"
+                onClick={() => setEditingVideo(video)}
+              >
                 Изменить
               </Button>
-              <Button variant="danger" onClick={() => remove(video)}>
+              <Button fullWidth variant="danger" onClick={() => remove(video)}>
                 Удалить
               </Button>
-            </div>
+            </>
           )}
         />
       )}
