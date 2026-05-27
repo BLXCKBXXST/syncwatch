@@ -1,6 +1,6 @@
-# API Reference
+# Справочник API
 
-REST + WebSocket API reference for the platform.
+Справочник REST- и WebSocket-API платформы.
 
 - Базовый префикс REST — `/api/`.
 - Формат тела запросов и ответов — JSON (загрузка видео — `multipart/form-data`).

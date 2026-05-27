@@ -1,7 +1,7 @@
-Drop production screenshots here as PNG:
+Положите сюда продакшен-скриншоты в формате PNG:
 
-- `home.png` — feed (home page)
-- `watch.png` — single video page with the player
-- `room.png` — synchronized room with chat side-panel
+- `home.png` — общая лента (главная)
+- `watch.png` — страница видео с плеером
+- `room.png` — комната совместного просмотра с боковой панелью чата
 
-They are wired into the top-level [README.md](../../README.md).
+Они подключены в корневом [README.md](../../README.md).

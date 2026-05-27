@@ -1,4 +1,4 @@
-"""Root HTTP URL configuration."""
+"""Корневая маршрутизация HTTP-запросов."""
 
 from django.conf import settings
 from django.conf.urls.static import static

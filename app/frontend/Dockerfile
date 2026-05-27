@@ -1,4 +1,4 @@
-# Frontend image: SPA build served by nginx.
+# Образ фронтенда: сборка SPA + раздача статики через nginx.
 # Этап 1 — сборка React-приложения.
 FROM node:20-alpine AS build
 WORKDIR /app

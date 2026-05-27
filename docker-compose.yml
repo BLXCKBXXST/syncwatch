@@ -1,10 +1,10 @@
-# Self-contained stack: `docker compose up --build` brings up the whole app
-# (database, Redis, backend, frontend) and publishes it on :8080.
+# Самодостаточный стек: `docker compose up --build` поднимает всё приложение
+# целиком (БД, Redis, бэкенд, фронтенд) и публикует его на :8080.
 #
-# Local development is usually done natively (venv + npm run dev). This compose
-# file is for demos, "looks like prod" checks, and as a template for deployment.
-# The blxckhub-* service names are kept in sync with deploy.sh, so the bundled
-# nginx.conf works in both environments.
+# Локальная разработка ведётся нативно (venv + npm run dev). Этот compose —
+# для демонстраций, проверки «как на сервере» и как образец прод-развёртывания.
+# Имена сервисов с префиксом blxckhub- совпадают с deploy.sh — поэтому
+# bundled nginx.conf работает в обоих окружениях.
 
 services:
   blxckhub-db:

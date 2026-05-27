@@ -1,7 +1,10 @@
 # Syncwatch
 
-Self-hosted video platform with **synchronized watch rooms** — upload, browse,
-watch alone, or pull friends into a room where everyone's player stays in sync.
+[English](README.en.md)
+
+Self-hosted видеоплатформа с **синхронными комнатами совместного просмотра** —
+загружайте ролики, листайте общую ленту, смотрите в одиночку или зовите друзей
+в комнату, где плееры всех участников идут в одну секунду.
 
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 ![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
@@ -10,50 +13,53 @@ watch alone, or pull friends into a room where everyone's player stays in sync.
 ![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-ready-2496ED?logo=docker&logoColor=white)
 
-## Screenshots
+## Скриншоты
 
-| Feed | Watch | Room |
-|------|-------|------|
-| ![Feed](docs/screenshots/home.png) | ![Watch](docs/screenshots/watch.png) | ![Room](docs/screenshots/room.png) |
+| Лента | Просмотр | Комната |
+|-------|----------|---------|
+| ![Лента](docs/screenshots/home.png) | ![Просмотр](docs/screenshots/watch.png) | ![Комната](docs/screenshots/room.png) |
 
-## Features
+## Возможности
 
-- Upload videos, browse a global feed, paginated.
-- Per-video page with HLS-capable player and HTTP Range streaming (scrub & seek).
-- **Synchronized rooms**: host controls playback, viewer players track the
-  server clock with drift correction, invite-link join, guest access.
-- Live chat with per-message likes; Q&A tab with up-votes.
-- Passwordless auth via one-time email codes; JWT sessions.
-- Three bundled UI themes (dark default, retro, light deep-blue) with an
-  admin-set per-site default; per-user preference saved in `localStorage`.
+- Загрузка видео, общая лента с пагинацией.
+- Страница видео с плеером (поддерживает HLS) и потоковой отдачей с HTTP Range
+  (перемотка и быстрый seek).
+- **Синхронные комнаты совместного просмотра**: ведущий управляет плеером,
+  плееры зрителей подстраиваются по серверным часам с коррекцией дрейфа,
+  ссылка-приглашение, гостевой доступ.
+- Живой чат с лайками на сообщениях, вкладка «Вопрос/ответ» с голосами.
+- Беспарольная авторизация — одноразовые коды на e-mail, JWT-сессии.
+- Три встроенные темы (тёмная дефолтная, ретро, светлая deep-blue);
+  администратор задаёт дефолтную тему сайта, пользовательский выбор сохраняется
+  в `localStorage`.
 
-## Tech stack
+## Стек
 
-| Layer       | Stack                                                              |
-|-------------|--------------------------------------------------------------------|
-| Backend     | Django 5, Django REST Framework, Channels (WebSocket), Daphne (ASGI) |
-| Real-time   | Redis channel layer                                                |
-| Database    | PostgreSQL (prod), SQLite (local dev)                              |
-| Auth        | JWT (djangorestframework-simplejwt) + one-time email codes         |
-| Frontend    | React 19, React Router, Vite, axios, hls.js                        |
-| Infra       | Docker Compose, nginx (frontend), Caddy (TLS at the edge)          |
+| Слой           | Технологии                                                              |
+|----------------|--------------------------------------------------------------------------|
+| Бэкенд         | Django 5, Django REST Framework, Channels (WebSocket), Daphne (ASGI)     |
+| Реал-тайм      | Redis (channel layer)                                                    |
+| База данных    | PostgreSQL (продакшен), SQLite (локальная разработка)                    |
+| Авторизация    | JWT (djangorestframework-simplejwt) + одноразовые коды на e-mail         |
+| Фронтенд       | React 19, React Router, Vite, axios, hls.js                              |
+| Инфраструктура | Docker Compose, nginx (фронтенд), Caddy (TLS на периметре)               |
 
-## Quick start
+## Быстрый старт
 
 ```bash
 docker compose up --build
 # → http://localhost:8080
 ```
 
-The bundled stack provisions PostgreSQL, Redis, the Django backend and the
-React frontend, and exposes the app on port `8080`.
+Подняв стек, получите PostgreSQL, Redis, Django-бэкенд и React-фронтенд за
+nginx — приложение доступно на порту `8080`.
 
-## Local development
+## Локальная разработка
 
-Native, without Docker — useful for iterating on the frontend or running tests.
+Нативно, без Docker — удобно для итераций по фронтенду и запуска тестов.
 
 ```bash
-# Backend (SQLite, in-memory channel layer)
+# Бэкенд (SQLite + in-memory channel layer)
 cd app/backend
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python manage.py migrate
@@ -61,44 +67,44 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 ```
 
 ```bash
-# Frontend (separate terminal)
+# Фронтенд (в отдельном терминале)
 cd app/frontend
 npm install
 npm run dev
 # → http://localhost:5173
 ```
 
-Sign-in codes are printed to the backend log (console email backend).
+Коды для входа печатаются в лог бэкенда (console email backend).
 
-## Project structure
+## Структура
 
 ```
 syncwatch/
 ├── app/
-│   ├── backend/        # Django apps: accounts, videos, rooms, chat, catalog, common
+│   ├── backend/        # Django-приложения: accounts, videos, rooms, chat, catalog, common
 │   └── frontend/       # React + Vite
-├── docker-compose.yml  # Self-contained stack
-├── deploy.sh           # Idempotent server install (behind Caddy)
-├── .env.example        # Environment variables template
-└── API.md              # REST + WebSocket API reference
+├── docker-compose.yml  # Самодостаточный стек
+├── deploy.sh           # Идемпотентный деплой на сервер (за Caddy)
+├── .env.example        # Шаблон переменных окружения
+└── API.md              # Справочник REST + WebSocket API
 ```
 
-## Configuration
+## Конфигурация
 
-Copy `.env.example` to `.env` and edit. Without an `.env` file the stack runs on
-SQLite + an in-memory channel layer — no external services required for local
-development.
+Скопируйте `.env.example` в `.env` и заполните. Без `.env` стек запускается
+на SQLite и in-memory channel layer — для локальной разработки внешних сервисов
+не требуется.
 
-## Tests
+## Тесты
 
 ```bash
-# Backend
+# Бэкенд
 cd app/backend && .venv/bin/python -m pytest
 
-# Frontend
+# Фронтенд
 cd app/frontend && npm run test
 ```
 
-## License
+## Лицензия
 
 [MIT](LICENSE).

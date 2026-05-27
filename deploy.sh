@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# deploy.sh — install/uninstall the platform on your own server behind a Caddy
-# reverse proxy.
+# deploy.sh — развёртывание и снос платформы на собственном сервере
+# за обратным прокси Caddy.
 #
-# Usage (run ON the server):
-#   ./deploy.sh --install     # deploy the app
-#   ./deploy.sh --uninstall   # tear it down
+# Использование (запускать НА сервере):
+#   ./deploy.sh --install     # развернуть
+#   ./deploy.sh --uninstall   # снести
 #
-# Assumes a Caddy stack already exists at /opt/stack/docker-compose.yml.
-# Both modes are idempotent and safe to re-run.
+# Требует уже установленного Caddy-стека в /opt/stack/docker-compose.yml.
+# Оба режима идемпотентны и могут быть запущены повторно.
 set -euo pipefail
 
 STACK_DIR="/opt/stack"
@@ -22,16 +22,16 @@ usage() {
     cat <<EOF
 Usage: $(basename "$0") --install | --uninstall
 
-  --install     Install: sync sources into ${APP_DIR}, add the
-                blxckhub-db/redis/backend/frontend services to the shared
-                docker-compose.yml, append the subdomain to Caddyfile, and
-                bring the stack up.
+  --install     Развернуть: синхронизировать исходники в ${APP_DIR},
+                добавить сервисы blxckhub-db/redis/backend/frontend
+                в общий docker-compose.yml, дописать поддомен в Caddyfile,
+                поднять стек.
 
-  --uninstall   Uninstall: stop and remove the containers, drop the services
-                from docker-compose.yml and the subdomain block from Caddyfile,
-                delete ${APP_DIR}.
+  --uninstall   Снести: остановить и удалить контейнеры, убрать сервисы
+                из docker-compose.yml и блок поддомена из Caddyfile,
+                удалить ${APP_DIR}.
 
-Both modes are idempotent and safe to re-run.
+Оба режима идемпотентны и могут быть запущены повторно.
 EOF
 }
 
@@ -70,7 +70,7 @@ gen_secret() {
 action_install() {
     require_caddy_stack
 
-    prompt_default "Public domain" "example.com" DOMAIN
+    prompt_default "Публичный домен" "example.com" DOMAIN
 
     echo "==> Бэкаплю docker-compose.yml и Caddyfile..."
     local stamp; stamp="$(date +%Y%m%d-%H%M%S)"
@@ -108,9 +108,9 @@ EOF
     fi
 
     if grep -qE '^[[:space:]]+blxckhub-backend:[[:space:]]*$' "${COMPOSE_FILE}"; then
-        echo "==> Services already present in ${COMPOSE_FILE} — skipping."
+        echo "==> Сервисы уже описаны в ${COMPOSE_FILE} — пропускаю."
     else
-        echo "==> Adding services to ${COMPOSE_FILE}..."
+        echo "==> Добавляю сервисы в ${COMPOSE_FILE}..."
         cat >>"${COMPOSE_FILE}" <<'EOF'
 
   blxckhub-db:
@@ -175,20 +175,20 @@ EOF
     cat <<EOF
 
 ================================================================================
-Deployment complete.
+Развёрнуто.
 
-Public URL:
+Публичный URL:
   https://${DOMAIN}  -> blxckhub-frontend (nginx) -> blxckhub-backend (daphne)
 
-Next steps:
-  1. Make sure DNS A/CNAME for ${DOMAIN} points at this server's public IP.
-  2. Open https://${DOMAIN} — on the first request Caddy spends ~30 seconds
-     issuing a TLS certificate from Let's Encrypt.
-  3. Sign in with a username and password; there is also a "sign in as guest"
-     button. Guest accounts are auto-deleted after 24 hours of inactivity.
-  4. Logs: docker logs -f blxckhub-backend | blxckhub-frontend | caddy
+Дальнейшие шаги:
+  1. Убедитесь, что DNS A/CNAME ${DOMAIN} указывает на внешний IP сервера.
+  2. Откройте https://${DOMAIN} — при первом запросе Caddy ~30 секунд выпускает
+     TLS-сертификат Let's Encrypt.
+  3. Вход — по имени пользователя и паролю; есть кнопка «войти как гостем».
+     Гостевые аккаунты автоматически удаляются после 24 ч простоя.
+  4. Логи: docker logs -f blxckhub-backend | blxckhub-frontend | caddy
 
-To tear down later:
+Снести позже:
   ./deploy.sh --uninstall
 ================================================================================
 EOF
@@ -197,14 +197,14 @@ EOF
 action_uninstall() {
     require_caddy_stack
 
-    prompt_default "Domain to remove" "example.com" DOMAIN
+    prompt_default "Домен для удаления" "example.com" DOMAIN
 
     echo "==> Бэкаплю docker-compose.yml и Caddyfile..."
     local stamp; stamp="$(date +%Y%m%d-%H%M%S)"
     cp -a "${COMPOSE_FILE}" "${COMPOSE_FILE}.bak.${stamp}"
     cp -a "${CADDY_FILE}"   "${CADDY_FILE}.bak.${stamp}"
 
-    echo "==> Stopping and removing containers..."
+    echo "==> Останавливаю и удаляю контейнеры..."
     for svc in blxckhub-frontend blxckhub-backend blxckhub-redis blxckhub-db; do
         if ( cd "${STACK_DIR}" && docker compose ps --services 2>/dev/null | grep -qx "${svc}" ); then
             ( cd "${STACK_DIR}" && docker compose stop "${svc}" && docker compose rm -f "${svc}" )
@@ -212,7 +212,7 @@ action_uninstall() {
     done
 
     if grep -qE '^[[:space:]]+blxckhub-db:[[:space:]]*$' "${COMPOSE_FILE}"; then
-        echo "==> Removing services from ${COMPOSE_FILE}..."
+        echo "==> Удаляю сервисы из ${COMPOSE_FILE}..."
         # Удаляем блок от строки "  blxckhub-db:" до следующего НЕ-blxckhub
         # сервиса (две ведущих пробела + слово) либо до конца файла.
         awk '
@@ -224,7 +224,7 @@ action_uninstall() {
         ' "${COMPOSE_FILE}" > "${COMPOSE_FILE}.tmp"
         mv "${COMPOSE_FILE}.tmp" "${COMPOSE_FILE}"
     else
-        echo "==> Services are absent from ${COMPOSE_FILE} — skipping."
+        echo "==> Сервисы отсутствуют в ${COMPOSE_FILE} — пропускаю."
     fi
 
     if grep -qF "${DOMAIN} {" "${CADDY_FILE}"; then
@@ -253,9 +253,9 @@ action_uninstall() {
     cat <<EOF
 
 ================================================================================
-Uninstalled: containers stopped, services and Caddy block removed,
-${APP_DIR} deleted. Timestamped backups of compose and Caddyfile
-remain alongside — restore manually if needed.
+Удалено: контейнеры остановлены, сервисы и блок Caddy убраны,
+каталог ${APP_DIR} удалён. Бэкапы compose и Caddyfile с меткой времени
+остались рядом — можно откатиться вручную.
 ================================================================================
 EOF
 }

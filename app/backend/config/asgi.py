@@ -1,4 +1,4 @@
-"""ASGI entrypoint: routes HTTP and WebSocket traffic by protocol."""
+"""ASGI-точка входа: маршрутизирует HTTP и WebSocket по протоколу."""
 
 import os
 

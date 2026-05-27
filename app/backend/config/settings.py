@@ -1,9 +1,8 @@
-"""Django settings.
+"""Настройки Django-проекта.
 
-Configuration is driven by environment variables (django-environ): without an
-``.env`` file the project falls back to SQLite and an in-memory channel layer,
-which is convenient for local development. On a server PostgreSQL and Redis are
-wired in via ``DATABASE_URL`` / ``REDIS_URL``. The same code runs in both modes.
+Конфигурация управляется переменными окружения (django-environ): локально без
+переменных используются SQLite и in-memory channel layer, на сервере через .env
+подключаются PostgreSQL и Redis. Один и тот же код работает в обоих режимах.
 """
 
 from datetime import timedelta

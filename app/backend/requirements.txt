@@ -1,4 +1,4 @@
-# Backend dependencies.
+# Зависимости бэкенда.
 # Веб-фреймворк и REST API
 Django~=5.1.0
 djangorestframework~=3.15.2

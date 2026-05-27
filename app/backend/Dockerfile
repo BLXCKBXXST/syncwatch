@@ -1,4 +1,4 @@
-# Backend image — Daphne ASGI server.
+# Образ бэкенда — ASGI-сервер Daphne.
 FROM python:3.12-slim
 
 ENV PYTHONUNBUFFERED=1 \
