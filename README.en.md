@@ -25,8 +25,9 @@ watch alone, or pull friends into a room where everyone's player stays in sync.
 - **Synchronized rooms**: host controls playback, viewer players track the
   server clock with drift correction, invite-link join, guest access.
 - Live chat with per-message likes; Q&A tab with up-votes.
-- Passwordless auth via one-time email codes; JWT sessions.
-- Three bundled UI themes (dark default, retro, light deep-blue) with an
+- Username/password sign-up and login with JWT sessions; one-click guest mode
+  (guest accounts are auto-deleted after 24h of inactivity).
+- Three bundled UI themes (dark Syncwatch, retro СЕАНС, light Sonar) with an
   admin-set per-site default; per-user preference saved in `localStorage`.
 
 ## Tech stack
@@ -36,7 +37,7 @@ watch alone, or pull friends into a room where everyone's player stays in sync.
 | Backend     | Django 5, Django REST Framework, Channels (WebSocket), Daphne (ASGI) |
 | Real-time   | Redis channel layer                                                |
 | Database    | PostgreSQL (prod), SQLite (local dev)                              |
-| Auth        | JWT (djangorestframework-simplejwt) + one-time email codes         |
+| Auth        | JWT (djangorestframework-simplejwt), username/password + guest mode |
 | Frontend    | React 19, React Router, Vite, axios, hls.js                        |
 | Infra       | Docker Compose, nginx (frontend), Caddy (TLS at the edge)          |
 
@@ -69,8 +70,6 @@ npm install
 npm run dev
 # → http://localhost:5173
 ```
-
-Sign-in codes are printed to the backend log (console email backend).
 
 ## Project structure
 
