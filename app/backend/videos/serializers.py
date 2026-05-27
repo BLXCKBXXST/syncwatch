@@ -56,4 +56,4 @@ class VideoUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Video
-        fields = ('title', 'description', 'is_public')
+        fields = ('title', 'description', 'is_public', 'thumbnail')

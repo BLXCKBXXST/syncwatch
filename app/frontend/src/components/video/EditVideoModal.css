@@ -64,6 +64,86 @@
   background: var(--color-surface);
 }
 
+.edit-modal__thumb {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.edit-modal__thumb-row {
+  display: flex;
+  gap: var(--space-3);
+  align-items: stretch;
+}
+
+.edit-modal__thumb-preview {
+  width: 140px;
+  aspect-ratio: 16 / 9;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-2);
+}
+
+.edit-modal__thumb-preview--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-faint);
+  font-size: 24px;
+  background: linear-gradient(135deg, var(--color-surface-2), var(--color-surface-3));
+}
+
+.edit-modal__thumb-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.edit-modal__file-btn {
+  display: inline-flex;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--color-text);
+  background: var(--color-surface);
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.edit-modal__file-btn:hover {
+  background: var(--color-surface-2);
+  border-color: var(--color-accent);
+}
+
+.edit-modal__file-btn input[type='file'] {
+  display: none;
+}
+
+.edit-modal__file-clear {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 13px;
+  color: var(--color-accent);
+  cursor: pointer;
+}
+
+.edit-modal__file-clear:hover {
+  color: var(--color-accent-hover);
+}
+
+.edit-modal__file-name {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
 .edit-modal__check {
   display: flex;
   align-items: center;
