@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=360,initial-scale=1">
+  <title>Syncwatch — страница видео (mobile, Sonar)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #fafafa;
+      --surface-2: #f1f5f9;
+      --border: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --text: #0f172a;
+      --text-muted: #334155;
+      --text-faint: #64748b;
+      --accent: #1e3a8a;
+      --accent-soft: #dbeafe;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 360px; background: var(--bg); font-family: 'Inter', sans-serif; color: var(--text); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+    .hdr { width: 360px; height: 56px; background: rgba(255, 255, 255, 0.92); border-bottom: 1px solid var(--border); box-shadow: 0 1px 0 var(--accent-soft); display: flex; align-items: center; justify-content: space-between; padding: 0 16px; }
+    .hdr__brand { display: flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 18px; }
+    .hdr__menu { width: 36px; height: 36px; border-radius: 50%; background: var(--accent); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
+
+    .player {
+      width: 360px;
+      aspect-ratio: 16 / 9;
+      background: #0f172a;
+      position: relative;
+      overflow: hidden;
+    }
+    .player__center { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: rgba(255, 255, 255, 0.7); font-size: 36px; }
+    .player__controls {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      padding: 10px 14px;
+      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.65));
+      display: flex; align-items: center; gap: 10px;
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+    }
+    .player__progress { flex: 1; height: 3px; background: rgba(255, 255, 255, 0.25); border-radius: 2px; overflow: hidden; position: relative; }
+    .player__progress::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 38%; background: var(--accent); }
+    .player__icon { font-size: 16px; }
+
+    .page { padding: 16px; }
+    .meta__title { font-size: 18px; font-weight: 700; line-height: 1.3; margin-bottom: 12px; }
+    .meta__row {
+      display: flex; align-items: center; gap: 12px;
+      padding-bottom: 14px; border-bottom: 1px solid var(--border);
+    }
+    .meta__avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); display: inline-flex; align-items: center; justify-content: center; font-weight: 700; }
+    .meta__author-name { font-weight: 600; font-size: 14px; }
+    .meta__views { color: var(--text-faint); font-size: 12px; }
+
+    .actions { display: flex; gap: 8px; margin-top: 16px; }
+    .btn {
+      flex: 1;
+      height: 44px;
+      border-radius: 8px;
+      font-weight: 600; font-size: 14px;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .btn--primary { background: var(--accent); color: #fff; }
+    .btn--secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border-strong); }
+
+    .descr {
+      margin-top: 16px;
+      padding: 14px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+  </style>
+</head>
+<body>
+  <header class="hdr">
+    <a class="hdr__brand" href="#">
+      <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true">
+        <circle cx="10" cy="10" r="2" fill="#1E3A8A"/>
+        <circle cx="10" cy="10" r="5" fill="none" stroke="#1E3A8A" stroke-width="1.2" opacity="0.55"/>
+        <circle cx="10" cy="10" r="8.5" fill="none" stroke="#1E3A8A" stroke-width="1" opacity="0.3"/>
+      </svg>
+      <span>Sonar</span>
+    </a>
+    <span class="hdr__menu">U</span>
+  </header>
+
+  <div class="player">
+    <div class="player__center">▶</div>
+    <div class="player__controls">
+      <span class="player__icon">⏸</span>
+      <span>04:38</span>
+      <div class="player__progress"></div>
+      <span>12:34</span>
+      <span class="player__icon">⛶</span>
+    </div>
+  </div>
+
+  <main class="page">
+    <h1 class="meta__title">Введение в синхронные комнаты Syncwatch</h1>
+    <div class="meta__row">
+      <span class="meta__avatar">U</span>
+      <div>
+        <div class="meta__author-name">@user</div>
+        <div class="meta__views">14 248 просмотров</div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn btn--secondary">Изменить</button>
+      <button class="btn btn--primary">Смотреть вместе</button>
+    </div>
+    <p class="descr">Обзор того, как Syncwatch держит плееры зрителей в одном такте: ведущий управляет воспроизведением, серверные часы и дрейф-коррекция следят за расхождением.</p>
+  </main>
+</body>
+</html>

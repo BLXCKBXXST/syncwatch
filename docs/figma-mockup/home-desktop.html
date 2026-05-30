@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Syncwatch — лента (desktop, Sonar)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #fafafa;
+      --surface-2: #f1f5f9;
+      --surface-3: #e2e8f0;
+      --border: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --text: #0f172a;
+      --text-muted: #334155;
+      --text-faint: #64748b;
+      --accent: #1e3a8a;
+      --accent-hover: #1e40af;
+      --accent-soft: #dbeafe;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 1440px; background: var(--bg); font-family: 'Inter', sans-serif; color: var(--text); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+    /* ===== HEADER ===== */
+    .hdr {
+      width: 1440px;
+      height: 64px;
+      background: rgba(255, 255, 255, 0.92);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 0 var(--accent-soft);
+      display: flex;
+      align-items: center;
+    }
+    .hdr__inner {
+      width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .hdr__brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      font-size: 20px;
+      color: var(--text);
+      letter-spacing: 0.02em;
+    }
+    .hdr__nav {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 14px;
+    }
+    .hdr__link {
+      padding: 8px 12px;
+      color: var(--text-muted);
+      border-radius: 4px;
+    }
+    .btn {
+      height: 40px;
+      padding: 0 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn--primary { background: var(--accent); color: #fff; }
+    .btn--secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border-strong); }
+    .avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    /* ===== LAYOUT ===== */
+    .page {
+      width: 1280px;
+      margin: 0 auto;
+      padding: 40px 0 80px;
+    }
+    .page__title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    /* ===== GRID + CARD ===== */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .vcard__thumb {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      border-radius: 12px;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--surface-2), var(--surface-3));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-faint);
+      font-size: 34px;
+    }
+    .vcard__duration {
+      position: absolute;
+      right: 8px; bottom: 8px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(15, 23, 42, 0.85);
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .vcard__body { padding-top: 12px; }
+    .vcard__title { font-size: 15px; font-weight: 600; line-height: 1.4; margin-bottom: 4px; }
+    .vcard__meta { font-size: 13px; color: var(--text-muted); }
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header class="hdr">
+    <div class="hdr__inner">
+      <a class="hdr__brand" href="#">
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
+          <circle cx="10" cy="10" r="2" fill="#1E3A8A"/>
+          <circle cx="10" cy="10" r="5" fill="none" stroke="#1E3A8A" stroke-width="1.2" opacity="0.55"/>
+          <circle cx="10" cy="10" r="8.5" fill="none" stroke="#1E3A8A" stroke-width="1" opacity="0.3"/>
+        </svg>
+        <span>Sonar</span>
+      </a>
+      <nav class="hdr__nav">
+        <a class="hdr__link" href="#">Каталог</a>
+        <a class="hdr__link" href="#">Сеанс по ссылке</a>
+        <button class="btn btn--secondary">Загрузить видео</button>
+        <span class="avatar">U</span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <h1 class="page__title">Лента</h1>
+
+    <div class="grid">
+      <article>
+        <div class="vcard__thumb">▶<span class="vcard__duration">12:34</span></div>
+        <div class="vcard__body">
+          <div class="vcard__title">Введение в синхронные комнаты Syncwatch</div>
+          <div class="vcard__meta">@user · 14 248 просмотров</div>
+        </div>
+      </article>
+      <article>
+        <div class="vcard__thumb">▶<span class="vcard__duration">04:12</span></div>
+        <div class="vcard__body">
+          <div class="vcard__title">Демонстрация загрузки ролика и редактирования метаданных</div>
+          <div class="vcard__meta">@anna · 8 901 просмотр</div>
+        </div>
+      </article>
+      <article>
+        <div class="vcard__thumb">▶<span class="vcard__duration">07:48</span></div>
+        <div class="vcard__body">
+          <div class="vcard__title">Урок 4: дрейф-коррекция плеера зрителей</div>
+          <div class="vcard__meta">@dev · 3 156 просмотров</div>
+        </div>
+      </article>
+      <article>
+        <div class="vcard__thumb">▶<span class="vcard__duration">22:05</span></div>
+        <div class="vcard__body">
+          <div class="vcard__title">Q&A: лучшие практики совместного просмотра</div>
+          <div class="vcard__meta">@host · 1 024 просмотра</div>
+        </div>
+      </article>
+      <article>
+        <div class="vcard__thumb">▶<span class="vcard__duration">03:30</span></div>
+        <div class="vcard__body">
+          <div class="vcard__title">Гостевой режим и приглашение по ссылке</div>
+          <div class="vcard__meta">@onboarding · 5 720 просмотров</div>
+        </div>
+      </article>
+      <article>
+        <div class="vcard__thumb">▶<span class="vcard__duration">11:18</span></div>
+        <div class="vcard__body">
+          <div class="vcard__title">Темы интерфейса: Syncwatch, СЕАНС, Sonar</div>
+          <div class="vcard__meta">@design · 2 410 просмотров</div>
+        </div>
+      </article>
+      <article>
+        <div class="vcard__thumb">▶<span class="vcard__duration">06:55</span></div>
+        <div class="vcard__body">
+          <div class="vcard__title">Чат с лайками и вкладка «Вопрос/ответ»</div>
+          <div class="vcard__meta">@chat · 970 просмотров</div>
+        </div>
+      </article>
+      <article>
+        <div class="vcard__thumb">▶<span class="vcard__duration">18:42</span></div>
+        <div class="vcard__body">
+          <div class="vcard__title">Деплой Syncwatch за Caddy: docker compose + .env</div>
+          <div class="vcard__meta">@ops · 612 просмотров</div>
+        </div>
+      </article>
+    </div>
+
+    <div class="pagination">
+      <button class="btn btn--secondary">Показать ещё</button>
+    </div>
+  </main>
+</body>
+</html>

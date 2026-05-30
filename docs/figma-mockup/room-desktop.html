@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Syncwatch — комната совместного просмотра (desktop, Sonar)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #fafafa;
+      --surface-2: #f1f5f9;
+      --surface-3: #e2e8f0;
+      --border: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --text: #0f172a;
+      --text-muted: #334155;
+      --text-faint: #64748b;
+      --accent: #1e3a8a;
+      --accent-soft: #dbeafe;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 1440px; background: var(--bg); font-family: 'Inter', sans-serif; color: var(--text); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+    .hdr { width: 1440px; height: 64px; background: rgba(255, 255, 255, 0.92); border-bottom: 1px solid var(--border); box-shadow: 0 1px 0 var(--accent-soft); display: flex; align-items: center; }
+    .hdr__inner { width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .hdr__brand { display: flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 20px; letter-spacing: 0.02em; }
+    .hdr__nav { display: flex; align-items: center; gap: 16px; font-size: 14px; }
+    .hdr__link { padding: 8px 12px; color: var(--text-muted); border-radius: 4px; }
+    .btn { padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+    .btn--primary { background: var(--accent); color: #fff; }
+    .btn--secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border-strong); }
+    .avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--accent); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
+
+    .room {
+      width: 1280px;
+      margin: 0 auto;
+      padding: 32px 0 80px;
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 24px;
+    }
+
+    .player {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #0f172a;
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    .player__center { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: rgba(255, 255, 255, 0.7); font-size: 56px; }
+    .player__controls { position: absolute; left: 0; right: 0; bottom: 0; padding: 16px 20px; background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.65)); display: flex; align-items: center; gap: 16px; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+    .player__progress { flex: 1; height: 4px; background: rgba(255, 255, 255, 0.25); border-radius: 2px; overflow: hidden; position: relative; }
+    .player__progress::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 38%; background: var(--accent); }
+    .player__icon { width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; }
+
+    .meta { margin-top: 20px; }
+    .meta__title { font-size: 20px; font-weight: 700; line-height: 1.3; margin-bottom: 8px; }
+    .meta__row { color: var(--text-faint); font-size: 13px; }
+
+    /* ===== SIDE PANEL ===== */
+    .side {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex; flex-direction: column;
+      min-height: 600px;
+    }
+    .side__head { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+    .side__status { display: flex; align-items: center; gap: 8px; }
+    .side__dot { width: 8px; height: 8px; border-radius: 50%; background: #16a34a; }
+    .tabs { display: flex; gap: 16px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+    .tab { padding: 8px 4px; font-size: 14px; font-weight: 600; color: var(--text-muted); border-bottom: 2px solid transparent; }
+    .tab--active { color: var(--text); border-bottom-color: var(--accent); }
+    .chat { flex: 1; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; padding-right: 4px; }
+    .msg { background: var(--surface-2); padding: 10px 12px; border-radius: 12px; }
+    .msg__author { font-size: 12px; font-weight: 600; color: var(--accent); margin-bottom: 2px; }
+    .msg__text { font-size: 14px; color: var(--text); }
+    .msg__like { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-faint); margin-top: 4px; }
+    .composer { display: flex; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+    .composer__input { flex: 1; height: 40px; padding: 0 12px; border: 1px solid var(--border-strong); border-radius: 8px; background: var(--bg); font: inherit; font-size: 14px; color: var(--text); }
+    .composer__send { height: 40px; padding: 0 16px; background: var(--accent); color: #fff; border-radius: 8px; font-weight: 600; font-size: 14px; }
+    .invite { margin-top: 12px; padding: 10px 14px; background: var(--surface-2); border: 1px dashed var(--border-strong); border-radius: 8px; font-size: 13px; color: var(--text-muted); text-align: center; }
+  </style>
+</head>
+<body>
+  <header class="hdr">
+    <div class="hdr__inner">
+      <a class="hdr__brand" href="#">
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
+          <circle cx="10" cy="10" r="2" fill="#1E3A8A"/>
+          <circle cx="10" cy="10" r="5" fill="none" stroke="#1E3A8A" stroke-width="1.2" opacity="0.55"/>
+          <circle cx="10" cy="10" r="8.5" fill="none" stroke="#1E3A8A" stroke-width="1" opacity="0.3"/>
+        </svg>
+        <span>Sonar</span>
+      </a>
+      <nav class="hdr__nav">
+        <a class="hdr__link" href="#">Каталог</a>
+        <a class="hdr__link" href="#">Сеанс по ссылке</a>
+        <button class="btn btn--secondary">Загрузить видео</button>
+        <span class="avatar">U</span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="room">
+    <section>
+      <div class="player">
+        <div class="player__center">▶</div>
+        <div class="player__controls">
+          <span class="player__icon">⏸</span>
+          <span>04:38</span>
+          <div class="player__progress"></div>
+          <span>12:34</span>
+          <span class="player__icon">🔊</span>
+          <span class="player__icon">⛶</span>
+        </div>
+      </div>
+      <div class="meta">
+        <h1 class="meta__title">Введение в синхронные комнаты Syncwatch</h1>
+        <div class="meta__row">Ведущий: <b>@user</b> · обновлено 2 сек назад</div>
+      </div>
+    </section>
+
+    <aside class="side">
+      <div class="side__head">
+        <span class="side__status"><span class="side__dot"></span>В эфире</span>
+        <span>Зрителей: 4</span>
+      </div>
+      <div class="tabs">
+        <span class="tab tab--active">Чат</span>
+        <span class="tab">Вопрос / ответ</span>
+        <span class="tab">Зрители</span>
+      </div>
+      <div class="chat">
+        <div class="msg">
+          <div class="msg__author">@user (ведущий)</div>
+          <div class="msg__text">Приветствую всех, начинаем через минуту.</div>
+          <div class="msg__like">♥ 3</div>
+        </div>
+        <div class="msg">
+          <div class="msg__author">@anna</div>
+          <div class="msg__text">Тут!</div>
+          <div class="msg__like">♥ 1</div>
+        </div>
+        <div class="msg">
+          <div class="msg__author">@гость-7421</div>
+          <div class="msg__text">Зашёл по ссылке, виден ли мой ник?</div>
+          <div class="msg__like">♥ 0</div>
+        </div>
+        <div class="msg">
+          <div class="msg__author">@user (ведущий)</div>
+          <div class="msg__text">Виден. Все авторизованы автоматически как гости, можно сразу писать.</div>
+          <div class="msg__like">♥ 5</div>
+        </div>
+      </div>
+      <form class="composer">
+        <input class="composer__input" type="text" placeholder="Текст" />
+        <button class="composer__send" type="submit">Отправить</button>
+      </form>
+      <div class="invite">Скопировать ссылку-приглашение</div>
+    </aside>
+  </main>
+</body>
+</html>

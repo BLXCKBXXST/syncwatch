@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Syncwatch — авторизация (desktop, Sonar)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #fafafa;
+      --surface-2: #f1f5f9;
+      --border: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --text: #0f172a;
+      --text-muted: #334155;
+      --text-faint: #64748b;
+      --accent: #1e3a8a;
+      --accent-soft: #dbeafe;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 1440px; min-height: 900px; background: var(--bg); font-family: 'Inter', sans-serif; color: var(--text); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+    .auth {
+      position: relative;
+      width: 1440px;
+      min-height: 900px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Sonar-ping backdrop: точка-источник + концентрические кольца */
+    .auth__backdrop {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 50%,
+          var(--accent) 4px, transparent 5px),
+        radial-gradient(circle at 50% 50%,
+          transparent 78px, rgba(30, 58, 138, 0.16) 79px, rgba(30, 58, 138, 0.16) 82px, transparent 83px),
+        radial-gradient(circle at 50% 50%,
+          transparent 158px, rgba(30, 58, 138, 0.12) 159px, rgba(30, 58, 138, 0.12) 162px, transparent 163px),
+        radial-gradient(circle at 50% 50%,
+          transparent 238px, rgba(30, 58, 138, 0.09) 239px, rgba(30, 58, 138, 0.09) 242px, transparent 243px),
+        radial-gradient(circle at 50% 50%,
+          transparent 318px, rgba(30, 58, 138, 0.06) 319px, rgba(30, 58, 138, 0.06) 322px, transparent 323px),
+        radial-gradient(circle at 50% 50%,
+          transparent 398px, rgba(30, 58, 138, 0.04) 399px, rgba(30, 58, 138, 0.04) 402px, transparent 403px),
+        var(--bg);
+    }
+
+    .auth__inner {
+      position: relative;
+      width: 440px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .auth__brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      font-size: 30px;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+
+    .auth__tabs {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 20px;
+    }
+    .auth__tab {
+      padding: 8px 4px;
+      color: var(--text-muted);
+      font-size: 15px;
+      font-weight: 600;
+      border-bottom: 2px solid transparent;
+    }
+    .auth__tab--active {
+      color: var(--text);
+      border-bottom-color: var(--accent);
+    }
+
+    .auth__card {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+    }
+
+    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .field__label { font-size: 14px; font-weight: 500; color: var(--text); }
+    .field__input {
+      height: 40px;
+      padding: 0 12px;
+      border: 1px solid var(--border-strong);
+      border-radius: 4px;
+      background: var(--bg);
+      font: inherit;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .btn {
+      width: 100%;
+      height: 44px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 15px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn--primary { background: var(--accent); color: #fff; margin-top: 8px; }
+    .btn--ghost { background: transparent; color: var(--accent); margin-top: 12px; font-size: 14px; }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 20px 0 12px;
+      color: var(--text-faint);
+      font-size: 13px;
+    }
+    .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  </style>
+</head>
+<body>
+  <div class="auth">
+    <div class="auth__backdrop" aria-hidden="true"></div>
+    <div class="auth__inner">
+      <div class="auth__brand">
+        <svg width="28" height="28" viewBox="0 0 20 20" aria-hidden="true">
+          <circle cx="10" cy="10" r="2" fill="#1E3A8A"/>
+          <circle cx="10" cy="10" r="5" fill="none" stroke="#1E3A8A" stroke-width="1.2" opacity="0.55"/>
+          <circle cx="10" cy="10" r="8.5" fill="none" stroke="#1E3A8A" stroke-width="1" opacity="0.3"/>
+        </svg>
+        <span>Sonar</span>
+      </div>
+
+      <nav class="auth__tabs">
+        <span class="auth__tab auth__tab--active">Регистрация</span>
+        <span class="auth__tab">Вход</span>
+      </nav>
+
+      <div class="auth__card">
+        <div class="field">
+          <label class="field__label" for="login">Имя пользователя</label>
+          <input class="field__input" id="login" type="text" placeholder="username" />
+        </div>
+        <div class="field">
+          <label class="field__label" for="pw">Пароль</label>
+          <input class="field__input" id="pw" type="password" placeholder="••••••••" />
+        </div>
+        <div class="field">
+          <label class="field__label" for="name">Имя в чате</label>
+          <input class="field__input" id="name" type="text" placeholder="Как вас видно в комнатах" />
+        </div>
+        <button class="btn btn--primary">Создать аккаунт</button>
+        <div class="divider">или</div>
+        <button class="btn btn--ghost">Войти как гостем</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
