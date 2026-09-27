@@ -17,16 +17,8 @@ Self-hosted видеоплатформа с **синхронными комна�
 
 | Лента | Профиль | Комната |
 |-------|---------|---------|
-| ![Лента](docs/screenshots/sonar-home.png) | ![Профиль](docs/screenshots/sonar-profile.png) | ![Комната](docs/screenshots/sonar-room.png) |
-
-<!-- Альтернативный набор в тёмной теме blxck.hub — раскомментируйте этот блок
-     и закомментируйте таблицу выше, чтобы переключить активный комплект скриншотов.
-
-| Лента | Профиль | Комната |
-|-------|---------|---------|
+<!--| ![Лента](docs/screenshots/sonar-home.png) | ![Профиль](docs/screenshots/sonar-profile.png) | ![Комната](docs/screenshots/sonar-room.png) |-->
 | ![Лента](docs/screenshots/blxckhub-home.png) | ![Профиль](docs/screenshots/blxckhub-profile.png) | ![Комната](docs/screenshots/blxckhub-room.png) |
-
--->
 
 
 ## Возможности
