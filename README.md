@@ -17,8 +17,9 @@ Self-hosted видеоплатформа с **синхронными комна�
 
 | Лента | Профиль | Комната |
 |-------|---------|---------|
-<!--| ![Лента](docs/screenshots/sonar-home.png) | ![Профиль](docs/screenshots/sonar-profile.png) | ![Комната](docs/screenshots/sonar-room.png) |-->
 | ![Лента](docs/screenshots/blxckhub-home.png) | ![Профиль](docs/screenshots/blxckhub-profile.png) | ![Комната](docs/screenshots/blxckhub-room.png) |
+
+<!--| ![Лента](docs/screenshots/sonar-home.png) | ![Профиль](docs/screenshots/sonar-profile.png) | ![Комната](docs/screenshots/sonar-room.png) |-->
 
 
 ## Возможности
